@@ -3,7 +3,7 @@
 # VDocRAG: Retirval-Augmented Generation over Visually-Rich Documents
 
 [![Project Page](https://img.shields.io/badge/VDocRAG-Website-green?logo=googlechrome&logoColor=green)](https://vdocrag.github.io/)
-[![VDocRAG Paper](https://img.shields.io/badge/VDocRAG-arXiv%202025-b31b1b?logo=arxiv&logoColor=red)](xxx)
+[![VDocRAG Paper](https://img.shields.io/badge/VDocRAG-arXiv%202025-b31b1b?logo=arxiv&logoColor=red)](http://arxiv.org/abs/2504.09795)
 [![Model (Retriever)](https://img.shields.io/badge/%F0%9F%A4%97%20Model-Retriever-yellow)](https://huggingface.co/NTT-hil-insight/VDocRetriever-Phi3-vision)
 [![Model (Generator)](https://img.shields.io/badge/%F0%9F%A4%97%20Model-Generator-yellow)](https://huggingface.co/NTT-hil-insight/VDocGenerator-Phi3-vision)
 [![Dataset (QA)](https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-QA-yellow)](https://huggingface.co/datasets/NTT-hil-insight/OpenDocVQA)
