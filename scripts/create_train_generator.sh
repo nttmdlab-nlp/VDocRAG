@@ -34,7 +34,6 @@ CUDA_VISIBLE_DEVICES=0 python -m vdocrag.vdocretriever.driver.encode \
   --normalize \
   --per_device_eval_batch_size 4 \
   --corpus_name NTT-hil-insight/OpenDocVQA-Corpus \
-  --corpus_config $CORPUS_DATASET \
   --dataset_number_of_shards 4 \
   --dataset_shard_index ${s} \
   --encode_output_path $EMBEDDING_OUTPUT_DIR/corpus.${CORPUS_DATASET}.${s}.pkl 

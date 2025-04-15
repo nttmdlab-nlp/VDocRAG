@@ -11,7 +11,7 @@
 [![Conference](https://img.shields.io/badge/CVPR-2025-blue)](#how-to-cite)
 </div>
 
-This repository includes the VDocRAG introduced by the following paper: Ryota Tanaka, Taichi Iki, Taku Hasegawa, Kyosuke Nishida, Kuniko Saito, and Jun Suzuki. "VDocRAG: Retirval-Augmented Generation over Visually-Rich Documents". In Proc. of CVPR 2025.
+This repository includes the VDocRAG introduced by the following paper: Ryota Tanaka, Taichi Iki, Taku Hasegawa, Kyosuke Nishida, Kuniko Saito, and Jun Suzuki. [VDocRAG: Retirval-Augmented Generation over Visually-Rich Documents](http://arxiv.org/abs/2504.09795). In Proc. of CVPR 2025.
 
 
 **VDocRAG** is a new RAG framework that can directly understand diverse real-world documents purely from visual features. 
@@ -209,7 +209,6 @@ deepspeed --include localhost:0 --master_port 60000 --module vdocrag.vdocretriev
   --save_steps 2000 \
   --dataset_name NTT-hil-insight/OpenDocVQA \
   --corpus_name NTT-hil-insight/OpenDocVQA-Corpus \
-  --corpus_config all \
   --bf16 \
   --pooling eos \
   --append_eos_token \
@@ -311,7 +310,7 @@ Before training and evaluating generator models, you should create a data includ
   - InfoVQA: `script/create_test_infovqa_generator.sh`
   - DUDE: `script/create_test_dude_generator.sh`
 
-If you want to use your own models, `lora_name_or_path` should be replaced with your model name. By default, all generated test set is set to the single-pool setting. When you evaluated models under the all-pool setting, you can change `CORPUS_DATASET` and `corpus_split` into `all` and `train`, respectively.
+If you want to use your own models, `lora_name_or_path` should be replaced with your model name. By default, all generated test set is set to the single-pool setting. When you evaluated models under the all-pool setting, you can change `CORPUS_DATASET` into `all`.
 
 
 ## Fine-tuning VDocGenerator
@@ -327,7 +326,6 @@ deepspeed --include localhost:0 --master_port 60000 --module vdocrag.vdocgenerat
   --save_steps 100 \
   --dataset_name NTT-hil-insight/OpenDocVQA \
   --corpus_name NTT-hil-insight/OpenDocVQA-Corpus \
-  --corpus_config all \
   --retrieval_results_path outputs/vdocretriever-phi3-vision_finetune/embs/rank.train.all.txt \
   --bf16 \
   --per_device_train_batch_size 2 \
