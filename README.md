@@ -8,7 +8,7 @@
 [![Model (Generator)](https://img.shields.io/badge/%F0%9F%A4%97%20Model-Generator-yellow)](https://huggingface.co/NTT-hil-insight/VDocGenerator-Phi3-vision)
 [![Dataset (QA)](https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-QA-yellow)](https://huggingface.co/datasets/NTT-hil-insight/OpenDocVQA)
 [![Dataset (Corpus)](https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-Corpus-yellow)](https://huggingface.co/datasets/NTT-hil-insight/OpenDocVQA-Corpus)
-[![Conference](https://img.shields.io/badge/CVPR-2025-blue)](#how-to-cite)
+[![Conference](https://img.shields.io/badge/CVPR-2025-blue)](https://cvpr.thecvf.com/)
 </div>
 
 This repository includes the VDocRAG introduced by the following paper: Ryota Tanaka, Taichi Iki, Taku Hasegawa, Kyosuke Nishida, Kuniko Saito, and Jun Suzuki. [VDocRAG: Retirval-Augmented Generation over Visually-Rich Documents](http://arxiv.org/abs/2504.09795). In Proc. of CVPR 2025.
