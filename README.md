@@ -38,6 +38,7 @@ This repository includes the VDocRAG introduced by the following paper: Ryota Ta
 
 <a name="news"></a>
 # 📢 News
+- [2025/04]: The pre-trained VDocRetriever weights are out in 🤗 [Huggingface Hub](https://huggingface.co/NTT-hil-insight/VDocRetriever-Phi3-vision-pretrained).
 - [2025/04]: The technical report, code, data, and model for VDocRAG are all available online.
 - [2025/02]: 🎉 VDocRAG is accepted to CVPR 2025.
 
@@ -198,6 +199,8 @@ deepspeed --include localhost:0 --master_port 60000 --module vdocrag.vdocretriev
 ```
 
 ## Fine-tuning VDocRetriever
+If you set `--lora_name_or_path` as `NTT-hil-insight/VDocRetriever-Phi3-vision-pretrained`, you can use our pre-trained VDocRetriever weights without pre-traing models locally. 
+
 ```bash
 deepspeed --include localhost:0 --master_port 60000 --module vdocrag.vdocretriever.driver.train \
   --deepspeed deepspeed/ds_zero3_config.json \
