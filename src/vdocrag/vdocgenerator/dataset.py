@@ -44,7 +44,13 @@ class TrainDataset(Dataset):
             for line in lines:
                 query_id, doc_id, score = line.split()
                 self.retrieved_docs[query_id].append(doc_id)
-            self.retrieved_docs[query_id] = self.retrieved_docs[query_id][:self.data_args.top_k]
+
+        for i, d in enumerate(self.train_data):
+            candidates = []
+            query_id = d["query_id"]
+            for image in self.retrieved_docs[query_id][:self.data_args.top_k]:
+                candidates.append(image)
+            self.train_data[i]["candidates"] = candidates
 
         self.trainer = trainer
 
@@ -57,10 +63,9 @@ class TrainDataset(Dataset):
 
     def __getitem__(self, item) -> Tuple[str, List[str]]:
         group = self.train_data[item]
-        query_id = group['query_id']
         query = group['query']
         answer = group['answers'][0]
-        images = [self._get_image(doc_id) for doc_id in self.retrieved_docs[query_id]]
+        images = [self._get_image(doc_id) for doc_id in group["candidates"]]
 
         return query, answer, images
 
@@ -98,6 +103,7 @@ class DecodeDataset(Dataset):
 
         for i, d in enumerate(self.test_data):
             candidates = []
+            query_id = d["query_id"]
             for image in self.retrieved_docs[query_id][:self.data_args.top_k]:
                 candidates.append(image)
             self.test_data[i]["candidates"] = candidates
