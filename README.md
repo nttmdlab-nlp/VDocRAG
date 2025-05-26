@@ -353,20 +353,20 @@ CUDA_VISIBLE_DEVICES=0 python -m vdocrag.vdocgenerator.driver.generate \
   --lora \
   --dataset_name NTT-hil-insight/OpenDocVQA \
   --dataset_split test \
-  --dataset_config $QUERY_DATASET \
+  --dataset_config ${QUERY_DATASET} \
   --corpus_name NTT-hil-insight/OpenDocVQA-Corpus \
   --corpus_config $CORPUS_DATASET \
   --corpus_split test \
-  --retrieval_results_path outputs/vdocretriever-phi3-vision_finetune/embs/rank.{$QUERY_DATASET}.{$CORPUS_DATASET}.txt \
+  --retrieval_results_path outputs/vdocretriever-phi3-vision_finetune/embs/rank.${QUERY_DATASET}.${CORPUS_DATASET}.txt \
   --bf16 \
   --per_device_eval_batch_size 1 \
   --top_k 3 \
-  --output_path outputs/vdocgenerator-phi3-vision_finetune/answers/answers.{$QUERY_DATASET}.{$CORPUS_DATASET}.json \
+  --output_path outputs/vdocgenerator-phi3-vision_finetune/answers/answers.${QUERY_DATASET}.${CORPUS_DATASET}.json \
 ```
 
 ## Evaluation
 ```bash
-python -m vdocrag.utils.eval_opendocvqa.py --input outputs/vdocgenerator-phi3-vision_finetune/answers/answers.{$QUERY_DATASET}.{$CORPUS_DATASET}.json
+python -m vdocrag.utils.eval_opendocvqa --input outputs/vdocgenerator-phi3-vision_finetune/answers/answers.${QUERY_DATASET}.${CORPUS_DATASET}.json
 ```
 
 <a name="license"></a>

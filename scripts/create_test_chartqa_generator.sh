@@ -43,7 +43,7 @@ CUDA_VISIBLE_DEVICES=0 python -m vdocrag.vdocretriever.driver.encode \
   --encode_output_path $EMBEDDING_OUTPUT_DIR/corpus.${CORPUS_DATASET}.${s}.pkl 
 done
 
-# retrieving documentss
+# retrieving documents
 python -m vdocrag.vdocretriever.driver.search \
     --query_reps $EMBEDDING_OUTPUT_DIR/query-${QUERY_DATASET}.pkl \
     --document_reps $EMBEDDING_OUTPUT_DIR/corpus.${CORPUS_DATASET}'.*.pkl' \

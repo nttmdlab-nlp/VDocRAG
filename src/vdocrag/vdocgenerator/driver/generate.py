@@ -64,7 +64,6 @@ def main():
     
     model = VDocGenerator.load(
         model_args.model_name_or_path,
-        normalize=model_args.normalize,
         lora_name_or_path=model_args.lora_name_or_path,
         trust_remote_code=True,
         cache_dir=model_args.cache_dir,

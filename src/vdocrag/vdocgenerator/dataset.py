@@ -10,10 +10,20 @@ from vdocrag.vdocgenerator.arguments import DataArguments
 from scipy.special import softmax
 from collections import defaultdict
 import numpy as np
+from functools import partial
 
 import logging
 logger = logging.getLogger(__name__)
 
+
+def format_query_for_QA(query):
+    return query.split("Query: ")[-1].strip() + "\n Answer briefly."
+
+def add_candidates(example, retrieved_docs, top_k):
+    query_id = example["query_id"]
+    candidates = retrieved_docs.get(query_id, [])[:top_k]
+    example["candidates"] = candidates
+    return example
 
 class TrainDataset(Dataset):
     def __init__(self, data_args: DataArguments, trainer = None):
@@ -45,12 +55,11 @@ class TrainDataset(Dataset):
                 query_id, doc_id, score = line.split()
                 self.retrieved_docs[query_id].append(doc_id)
 
-        for i, d in enumerate(self.train_data):
-            candidates = []
-            query_id = d["query_id"]
-            for image in self.retrieved_docs[query_id][:self.data_args.top_k]:
-                candidates.append(image)
-            self.train_data[i]["candidates"] = candidates
+        self.train_data = self.train_data.map(
+            partial(add_candidates,
+                    retrieved_docs=self.retrieved_docs,
+                    top_k=self.data_args.top_k)
+        )
 
         self.trainer = trainer
 
@@ -63,7 +72,7 @@ class TrainDataset(Dataset):
 
     def __getitem__(self, item) -> Tuple[str, List[str]]:
         group = self.train_data[item]
-        query = group['query']
+        query = format_query_for_QA(group['query'])
         answer = group['answers'][0]
         images = [self._get_image(doc_id) for doc_id in group["candidates"]]
 
@@ -101,13 +110,12 @@ class DecodeDataset(Dataset):
                 query_id, doc_id, score = line.split()
                 self.retrieved_docs[query_id].append(doc_id)
 
-        for i, d in enumerate(self.test_data):
-            candidates = []
-            query_id = d["query_id"]
-            for image in self.retrieved_docs[query_id][:self.data_args.top_k]:
-                candidates.append(image)
-            self.test_data[i]["candidates"] = candidates
-        
+        self.test_data = self.test_data.map(
+            partial(add_candidates,
+                    retrieved_docs=self.retrieved_docs,
+                    top_k=self.data_args.top_k)
+        )
+
     def __len__(self):
         return len(self.test_data)
 
@@ -118,8 +126,7 @@ class DecodeDataset(Dataset):
     def __getitem__(self, item) -> Tuple[str, str]:
         data = self.test_data[item]
         query_id = data['query_id']
-        query = data["query"]
+        query = format_query_for_QA(data["query"])
         answers = data['answers']
         images = [self._get_image(doc_id) for doc_id in data["candidates"]]
-
         return query_id, query, answers, images
